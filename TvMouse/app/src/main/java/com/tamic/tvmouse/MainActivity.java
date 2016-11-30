@@ -6,6 +6,8 @@ import android.annotation.SuppressLint;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -154,6 +156,15 @@ public class MainActivity extends AppCompatActivity {
         mMouseManager.init(contentView, TcMouseManager.MOUSE_TYPE);
         mMouseManager.setShowMouse(true);
 
+    }
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+
+        if (mMouseManager != null && mMouseManager.isShowMouse()) {
+            return mMouseManager.onDpadClicked(event);
+        }
+        return super.dispatchKeyEvent(event);
     }
 
 }
